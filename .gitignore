@@ -1,0 +1,53 @@
+# ---- Python ----
+__pycache__*
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ---- Virtual Environment ----
+.venv/
+env/
+venv/
+*.env
+.env
+.env.*
+
+# ---- Editor/IDE ----
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ---- OS Files ----
+.DS_Store
+Thumbs.db
+
+# ---- Logs and Misc ----
+*.log
+*.sqlite3
+*.db
+*.bak
+
+# ---- Test Artifacts ----
+htmlcov/
+coverage.xml
+.cache/
+.pytest_cache/
+.tox/
+debug_images/
+
+# ---- Type Checking ----
+.mypy_cache/
+.dmypy.json
+
+# ---- Linting ----
+ruff_cache/
+
+# ---- Packaging ----
+*.whl
