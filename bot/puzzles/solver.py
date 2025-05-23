@@ -1,5 +1,4 @@
 import os
-from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Tuple
@@ -7,17 +6,7 @@ from typing import List, Optional, Tuple
 import cv2
 import numpy as np
 
-
-@dataclass
-class PuzzlePiece:
-    """Represents a single puzzle piece with its properties."""
-
-    id: int
-    # List of (x,y) coordinates forming the piece boundary
-    corners: List[List[float]]
-    center: Tuple[int, int]  # Center point of the piece
-    image: np.ndarray  # The actual image data for this piece
-    area: float  # Area of the piece in pixels
+from .models import PuzzlePiece
 
 
 class PuzzleSolver:
