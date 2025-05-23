@@ -23,7 +23,9 @@ class PuzzlePiece:
 class PuzzleSolver:
     """Main class for solving jigsaw puzzles using computer vision."""
 
-    def __init__(self, image: np.ndarray, expected_pieces: int, debug: bool = False):
+    def __init__(
+        self, image: np.ndarray, expected_pieces: int = 0, debug: bool = False
+    ):
         """Initialize the puzzle solver with an image and expected number of pieces.
 
         Args:
@@ -39,8 +41,10 @@ class PuzzleSolver:
         if len(image.shape) != 3 or image.shape[2] != 3:
             raise ValueError("Input image must be a 3-channel BGR image")
 
-        if not isinstance(expected_pieces, int) or expected_pieces <= 0:
-            raise TypeError("expected_pieces must be a positive integer")
+        if expected_pieces == 0:
+            expected_pieces = len(
+                cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
+            )
 
         self.image = image.copy()  # Make a copy to avoid modifying the original
         self.expected_pieces = expected_pieces
