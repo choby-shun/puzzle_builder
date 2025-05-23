@@ -8,13 +8,13 @@ import numpy as np
 
 from .models import PuzzlePiece
 
+DEBUG = os.environ.get("DEBUG", True)
+
 
 class PuzzleSolver:
     """Main class for solving jigsaw puzzles using computer vision."""
 
-    def __init__(
-        self, image: np.ndarray, expected_pieces: int = 0, debug: bool = False
-    ):
+    def __init__(self, image: np.ndarray, expected_pieces: int = 0):
         """Initialize the puzzle solver with an image and expected number of pieces.
 
         Args:
@@ -38,9 +38,8 @@ class PuzzleSolver:
         self.image = image.copy()  # Make a copy to avoid modifying the original
         self.expected_pieces = expected_pieces
         self.pieces: List[PuzzlePiece] = []
-        self.debug = debug
 
-        if self.debug:
+        if DEBUG:
             # Create timestamped debug directory
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             self.debug_dir = Path("debug_images") / timestamp
@@ -65,7 +64,7 @@ class PuzzleSolver:
             name: Name of the debug image
             image: Image to save
         """
-        if not self.debug:
+        if not DEBUG:
             return
 
         # Save image with timestamp
@@ -117,13 +116,13 @@ class PuzzleSolver:
         """
         # Convert to grayscale for processing
         gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
-        if self.debug:
+        if DEBUG:
             self._save_debug_image("02_grayscale", gray)
 
         # Apply threshold to get binary image
         # Use a fixed threshold since we know pieces are white (255) on black (0)
         _, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
-        if self.debug:
+        if DEBUG:
             self._save_debug_image("03_binary", binary)
 
         # Find contours
@@ -163,7 +162,7 @@ class PuzzleSolver:
         self._validate_pieces()
 
         # Save debug image with detected pieces
-        if self.debug:
+        if DEBUG:
             debug_image = self._draw_pieces(self.image)
             self._save_debug_image("04_detected_pieces", debug_image)
 
@@ -237,7 +236,7 @@ class PuzzleSolver:
         # Fill interior
         self._fill_interior()
 
-        if self.debug:
+        if DEBUG:
             self._visualize_solution()
 
         return self.solution_matrix
@@ -695,7 +694,7 @@ class PuzzleSolver:
 
     def _visualize_solution(self) -> None:
         """Create a visualization of the current puzzle solution state."""
-        if not self.debug:
+        if not DEBUG:
             return
 
         # Create a blank image for the solution

@@ -26,7 +26,7 @@ def basic_solver(basic_test_image):
 @pytest.fixture
 def complex_solver(complex_test_image):
     """Fixture for creating a complex puzzle solver instance."""
-    return PuzzleSolver(complex_test_image, expected_pieces=9, debug=True)
+    return PuzzleSolver(complex_test_image, expected_pieces=9)
 
 
 def create_test_image(size=(500, 500), n_pieces=4):

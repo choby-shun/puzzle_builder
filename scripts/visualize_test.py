@@ -11,7 +11,7 @@ def visualize_test_image():
     for n_pieces in [4, 9, 16]:
         print(f"\nCreating test image with {n_pieces} pieces...")
         test_image = create_test_image(n_pieces=n_pieces)
-        solver = PuzzleSolver(test_image, expected_pieces=n_pieces, debug=True)
+        solver = PuzzleSolver(test_image, expected_pieces=n_pieces)
         solver._save_debug_image(f"{n_pieces}_original", test_image)
         pieces = solver.detect_pieces()
         print(f"Detected {len(pieces)} pieces")
@@ -31,7 +31,7 @@ def visualize_real_image(image_path, expected_pieces=0):
         print(f"Failed to load image: {image_path}")
         return
     print(f"\nLoaded real image: {image_path} shape={test_image.shape}")
-    solver = PuzzleSolver(test_image, expected_pieces=expected_pieces, debug=True)
+    solver = PuzzleSolver(test_image, expected_pieces=expected_pieces)
     solver._save_debug_image("real_image_original", test_image)
     pieces = solver.detect_pieces()
     print(f"Detected {len(pieces)} pieces")
