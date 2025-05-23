@@ -214,8 +214,8 @@ class TestPieceDetection:
                 mask1 = np.zeros(complex_solver.image.shape[:2], dtype=np.uint8)
                 mask2 = np.zeros(complex_solver.image.shape[:2], dtype=np.uint8)
 
-                cv2.fillPoly(mask1, [np.array(piece1.corners, dtype=np.int32)], 255)
-                cv2.fillPoly(mask2, [np.array(piece2.corners, dtype=np.int32)], 255)
+                cv2.fillPoly(mask1, [np.array(piece1.corners, dtype=np.int32)], 255)  # type: ignore
+                cv2.fillPoly(mask2, [np.array(piece2.corners, dtype=np.int32)], 255)  # type: ignore
 
                 intersection = cv2.bitwise_and(mask1, mask2)
                 intersection_area = np.count_nonzero(intersection)
